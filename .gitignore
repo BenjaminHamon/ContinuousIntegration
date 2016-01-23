@@ -1,0 +1,7 @@
+# Python
+__pycache__
+
+# Directories created by the example
+Example/deploy/
+Example/output/
+Example/packages/
