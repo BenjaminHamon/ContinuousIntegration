@@ -14,8 +14,10 @@
 import os
 import shutil
 import sys
-sys.path.insert(0, "project/scripts")
 
+import lock
+
+sys.path.insert(0, "project/scripts")
 import project
 
 
@@ -52,6 +54,8 @@ if __name__ == "__main__":
 	if os.path.exists(PACKAGE_DIRECTORY) == False:
 		os.mkdir(PACKAGE_DIRECTORY)
 
+	lock.lock_directory("")
+
 	clean()
 	project.clean()
 	print()
@@ -68,3 +72,5 @@ if __name__ == "__main__":
 	#	Remote connect and execute update script
 	# OR
 	#	Launch new instance
+
+	lock.unlock_directory("")

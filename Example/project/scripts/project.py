@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 import argparse
 import os
 import shutil
@@ -46,11 +47,6 @@ def validate():
 		print("Success")
 	else:
 		raise Exception("Validation failed")
-
-
-def deploy():
-	print("Deploying")
-	shutil.make_archive("deploy/example", "zip", "output")
 
 
 if __name__ == "__main__":
