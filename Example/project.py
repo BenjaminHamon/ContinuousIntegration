@@ -16,7 +16,7 @@ def parse_arguments():
 def execute_actions(actionList):
 	actionDictionary = {
 		"clean": clean,
-		"compile": compile,
+		"build": build,
 		"validate": validate,
 	}
 	
@@ -27,23 +27,23 @@ def execute_actions(actionList):
 
 def clean():
 	print("=== Clean up ===")
-	if os.path.exists("output"):
-		shutil.rmtree("output")
+	if os.path.exists("Output"):
+		shutil.rmtree("Output")
 
 
 def build():
 	print("=== Build ===")
 	
-	if os.path.exists("output") == False:
-		os.mkdir("output")
+	if os.path.exists("Output") == False:
+		os.mkdir("Output")
 		
 	print("Create project file")
-	file = open("output/example.txt", "w+")
+	file = open("Output/example.txt", "w+")
 
 
 def validate():
 	print("=== Validation ===")
-	if os.path.exists("output/example.txt"):
+	if os.path.exists("Output/example.txt"):
 		print("Success")
 	else:
 		raise Exception("Validation failed")
