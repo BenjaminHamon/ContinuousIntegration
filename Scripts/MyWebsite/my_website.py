@@ -16,8 +16,10 @@ import Common.package_s3 as package
 
 def parse_arguments():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--revision", required=True, help="sources revision to check out")
+	parser.add_argument("--activate", action="store_true", help="activate the deployed package, replacing the previous one")
 	parser.add_argument("--configuration", required=True, help="configuration file to load")
+	parser.add_argument("--environment", required=True, help="target environment")
+	parser.add_argument("--revision", required=True, help="sources revision to check out")
 	parser.add_argument("--verbose", action="store_true", help="increase output verbosity")
 	return parser.parse_args()
 
@@ -42,7 +44,7 @@ def update_sources(url, revision):
 	return revision
 
 
-def deploy(build_configuration, revision):
+def deploy(build_configuration, revision, activate, environment):
 	print("=== Deployment ===")
 
 	if os.path.exists("Deploy") == False:
@@ -54,6 +56,12 @@ def deploy(build_configuration, revision):
 
 	print("Deploying package to repository")
 	package.upload("MyWebsite", "Deploy/" + package_name + ".zip")
+	
+	if activate:
+		print("Activating package on environment " + environment)
+		package.set_active("MyWebsite", package_name + ".zip", environment)
+	
+	print()
 
 
 if __name__ == "__main__":
@@ -77,7 +85,7 @@ if __name__ == "__main__":
 			MyWebsite.validate()
 			MyWebsite.publish()
 
-		deploy(configuration["build"]["configuration"], revision)
+		deploy(configuration["build"]["configuration"], revision, arguments.activate, arguments.environment)
 
 		# Foreach instance
 		#	Remote connect and execute update script
