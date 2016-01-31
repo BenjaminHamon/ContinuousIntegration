@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 
-from contextlib import contextmanager
+import contextlib
 import os
 
 
-@contextmanager
+@contextlib.contextmanager
 def lock_directory(path):
 	lock_path = os.path.join(path, "lock")
 	if os.path.exists(lock_path):

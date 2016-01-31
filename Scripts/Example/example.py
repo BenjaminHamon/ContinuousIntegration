@@ -15,8 +15,9 @@ import os
 import shutil
 import sys
 
-sys.path.insert(0, "Scripts/Common")
-import lock
+sys.path.insert(0, "Scripts")
+import Common.lock
+import Common.package_filesystem as package
 
 sys.path.insert(0, "Project")
 import project
@@ -29,6 +30,7 @@ def clean():
 	print("=== Clean up ===")
 	if os.path.exists("Deploy"):
 		shutil.rmtree("Deploy")
+	print()
 
 
 def deploy():
@@ -40,28 +42,20 @@ def deploy():
 	shutil.make_archive("Deploy/example", "zip", "Output")
 
 	print("Deploy package to repository")
-	package_directory = os.path.join(PACKAGE_DIRECTORY, "Example")
-	if os.path.exists(package_directory) == False:
-		os.mkdir(package_directory)
-	shutil.copy("Deploy/example.zip", package_directory)
+	package.upload("Example", "Deploy/example.zip")
+	print()
 
 
 if __name__ == "__main__":
 
-	with lock.lock_directory(""):
+	with Common.lock.lock_directory(""):
 
 		clean()
-		print()
 		
 		project.clean()
-		print()
-
 		project.build()
-		print()
-
 		project.validate()
-		print()
-
+		
 		deploy()
 
 		# Foreach instance

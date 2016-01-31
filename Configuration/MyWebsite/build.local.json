@@ -1,0 +1,8 @@
+{
+	"sources": {
+		"url": "https://github.com/BenjaminHamon/MyWebsite.git"
+	},
+	"build": {
+		"configuration": "Debug"
+	}
+}

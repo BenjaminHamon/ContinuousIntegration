@@ -22,13 +22,13 @@ def execute_actions(actionList):
 	
 	for action in actionList:
 		actionDictionary[action]()
-		print()
 
 
 def clean():
 	print("=== Clean up ===")
 	if os.path.exists("Output"):
 		shutil.rmtree("Output")
+	print()
 
 
 def build():
@@ -39,6 +39,7 @@ def build():
 		
 	print("Create project file")
 	file = open("Output/example.txt", "w+")
+	print()
 
 
 def validate():
@@ -47,6 +48,7 @@ def validate():
 		print("Success")
 	else:
 		raise Exception("Validation failed")
+	print()
 
 
 if __name__ == "__main__":
